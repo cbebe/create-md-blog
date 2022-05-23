@@ -14,7 +14,7 @@ const fmtDate = (date: Date) => [date.getFullYear(), date.getMonth() + 1, date.g
 
 const createBlogDir = async (date: Date, slug: string) => {
   const blogDir = `${BLOG_DIR}/${fmtDate(date)}-${slug}`;
-  await mkdir(blogDir);
+  await mkdir(blogDir, { recursive: true });
   return blogDir;
 };
 
@@ -24,7 +24,7 @@ async function main() {
     const fileData = await getSlugsAndTags(BLOG_DIR);
     const response = await promptQuestions(authorChoices, fileData);
     const { date, slug, tags: existingTags, newTags, ...rest } = response;
-    const dirName = createBlogDir(date, slug);
+    const dirName = await createBlogDir(date, slug);
     const tags = Array.from(
       new Set(
         existingTags
