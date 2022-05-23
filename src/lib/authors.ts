@@ -1,14 +1,6 @@
 import { readFile } from 'fs/promises';
 import { load } from 'js-yaml';
-
-export interface Author {
-  name: string;
-  title: string;
-  url: string;
-  image_url: string;
-}
-
-export type AuthorChoices = [string, Author][];
+import { AuthorChoices } from './types';
 
 export async function getAuthors(filePath: string): Promise<AuthorChoices> {
   try {

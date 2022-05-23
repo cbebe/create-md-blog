@@ -1,12 +1,7 @@
-#!/usr/bin/env node
-
 import fm from 'front-matter';
 import { readFile } from 'fs/promises';
 import readdirp from 'readdirp';
-
-export type BlogData = { slugs: Set<string>; tags: Set<string> };
-
-type BlogAttributes = { slug: string; tags: string | string[] };
+import { BlogAttributes, BlogData } from './types';
 
 function getFileSlug(fileName: string) {
   const fileSlug = fileName.match(/.*\d{4}-\d{2}-\d{2}-(.*?)(\/index)?.mdx?/);
@@ -26,10 +21,10 @@ function getAllMarkdownFiles(dir: string): Promise<string[]> {
         allFilePaths.push(entry.fullPath);
       })
       .on('warn', function (warn) {
-        process.stderr.write('readdirp Warn: ' + warn);
+        process.stderr.write('readdirp Warn: ' + warn + '\n');
       })
       .on('error', function (err) {
-        process.stderr.write('readdirp Error: ' + err.stack);
+        process.stderr.write('readdirp Error: ' + err.stack + '\n');
       })
       .on('end', function () {
         resolve(allFilePaths);
