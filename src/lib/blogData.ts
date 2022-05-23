@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import fm from 'front-matter';
 import { readFile } from 'fs/promises';
 import readdirp from 'readdirp';

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { mkdir, writeFile } from 'fs/promises';
 import yaml from 'js-yaml';
 
