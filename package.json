@@ -1,8 +1,17 @@
 {
   "name": "create-md-blog",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Create a Markdown blog file from the command line",
   "main": "dist/bin/md-blog.js",
+  "author": {
+    "name": "Charles Ancheta",
+    "email": "cancheta.dev@gmail.com",
+    "url": "https://charlesancheta.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbebe/create-md-blog.git"
+  },
   "bin": {
     "md-blog": "dist/bin/md-blog.js"
   },
