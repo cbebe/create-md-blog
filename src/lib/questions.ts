@@ -53,7 +53,7 @@ export async function promptQuestions(
     throw new Error(`Slug \`${slug}\` already exists in blog`);
   }
 
-  if (tags === undefined) {
+  if (tags === undefined && fileDataTags.size) {
     questions.push({
       type: 'autocompleteMultiselect',
       name: 'tags',
@@ -81,14 +81,18 @@ export async function promptQuestions(
     });
   }
 
-  const givenOptions = { author, title, date, slug, standalone, tags };
-  const { newTags, tags: existingTags, ...rest } = await prompts(questions, { onCancel: () => process.exit(0) });
+  const givenOptions = { author, title, date, slug, standalone };
+  const {
+    newTags,
+    tags: existingTags = [],
+    ...rest
+  } = (await prompts(questions, { onCancel: () => process.exit(0) })) as PromptResponse;
   const combinedTags = Array.from(
     new Set<string>(
       (tags || existingTags)
         .concat(newTags)
-        .filter((t: string) => !!t)
-        .map((t: string) => t.toLowerCase())
+        .filter((t) => !!t)
+        .map((t) => t.toLowerCase())
     )
   );
 

@@ -23,7 +23,12 @@ export async function main() {
     )
     .option('-t, --title <title>', 'Title of the blog')
     .option('--slug <slug>', 'Slug path of the blog file')
-    .addOption(new Option('--tags <tags...>', 'Specify tags').choices(Array.from(fileData.tags)))
+    .addOption(
+      (() => {
+        const option = new Option('--tags <tags...>', 'Specify existing tags');
+        return fileData.tags.size ? option.choices(Array.from(fileData.tags)) : option;
+      })()
+    )
     .option('-p, --prompt-new-tags', 'Prompt to add new tags', false)
     // This is horrible
     .option('-d, --date <blog date>', 'Date posted for the blog', function (date) {

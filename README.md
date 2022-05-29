@@ -37,7 +37,7 @@ Options:
   -a, --author <author entry>  Author of the blog post
   -t, --title <title>          Title of the blog
   --slug <slug>                Slug path of the blog file
-  --tags <tags...>             Specify tags
+  --tags <tags...>             Specify existing tags
   -p, --prompt-new-tags        Prompt to add new tags (default: false)
   -d, --date <blog date>       Date posted for the blog
   -h, --help                   display help for command
