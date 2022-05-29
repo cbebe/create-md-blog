@@ -1,4 +1,5 @@
 import prompts, { PromptObject } from 'prompts';
+import slugify from 'slug';
 import { AuthorChoices, BlogData, CLIPromptOptions, PromptResponse } from './types';
 
 export async function promptQuestions(
@@ -46,14 +47,7 @@ export async function promptQuestions(
       name: 'slug',
       message: 'URL slug for the blog',
       validate: (slug) => (slugs.has(slug) ? `Slug \`${slug}\`already exists in blog` : true),
-      initial: (_, values) => {
-        const title = values.title || options.title;
-        return title
-          .split(' ')
-          .slice(0, 2)
-          .map((s: string) => s.toLowerCase())
-          .join('-');
-      },
+      initial: (_, values) => slugify(values.title || options.title),
     });
   } else if (slugs.has(slug)) {
     throw new Error(`Slug \`${slug}\` already exists in blog`);
