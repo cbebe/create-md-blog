@@ -1,5 +1,6 @@
 import prompts, { PromptObject } from 'prompts';
-import { AuthorChoices, BlogData, CLIPromptOptions, PromptResponse } from './types';
+import slugify from 'slug';
+import type { AuthorChoices, BlogData, CLIPromptOptions, PromptResponse } from './types';
 
 export async function promptQuestions(
   authorChoices: AuthorChoices,
@@ -45,21 +46,14 @@ export async function promptQuestions(
       type: 'text',
       name: 'slug',
       message: 'URL slug for the blog',
-      validate: (slug) => (slugs.has(slug) ? `Slug \`${slug}\`already exists in blog` : true),
-      initial: (_, values) => {
-        const title = values.title || options.title;
-        return title
-          .split(' ')
-          .slice(0, 2)
-          .map((s: string) => s.toLowerCase())
-          .join('-');
-      },
+      validate: (slug) => (slugs.has(slug) ? `Slug \`${slug}\` already exists in blog` : true),
+      initial: (_, values) => slugify(values.title || options.title),
     });
   } else if (slugs.has(slug)) {
     throw new Error(`Slug \`${slug}\` already exists in blog`);
   }
 
-  if (tags === undefined) {
+  if (tags === undefined && fileDataTags.size) {
     questions.push({
       type: 'autocompleteMultiselect',
       name: 'tags',
@@ -87,14 +81,18 @@ export async function promptQuestions(
     });
   }
 
-  const givenOptions = { author, title, date, slug, standalone, tags };
-  const { newTags, tags: existingTags, ...rest } = await prompts(questions, { onCancel: () => process.exit(0) });
+  const givenOptions = { author, title, date, slug, standalone };
+  const {
+    newTags,
+    tags: existingTags = [],
+    ...rest
+  } = (await prompts(questions, { onCancel: () => process.exit(0) })) as PromptResponse;
   const combinedTags = Array.from(
     new Set<string>(
       (tags || existingTags)
         .concat(newTags)
-        .filter((t: string) => !!t)
-        .map((t: string) => t.toLowerCase())
+        .filter((t) => !!t)
+        .map((t) => t.toLowerCase())
     )
   );
 

@@ -5,10 +5,10 @@
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "sourceMap": false,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": "./src",
     "declaration": true,
     "strict": true,
-    "types": ["node"],
+    "types": ["node", "jest"],
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -19,5 +19,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "removeComments": true
-  }
+  },
+  "exclude": ["**/*.test.ts", "dist"],
+  "include": ["./src/**/*.ts"]
 }

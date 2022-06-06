@@ -3,7 +3,7 @@ export type CLIPromptOptions = Partial<{
   author: string;
   title: string;
   slug: string;
-  tags: string;
+  tags: string[];
   promptNewTags: boolean;
   date: Date;
   mdx: boolean;

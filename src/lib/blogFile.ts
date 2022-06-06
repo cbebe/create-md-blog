@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises';
 import yaml from 'js-yaml';
-import { CreateBlogOptions } from './types';
+import type { CreateBlogOptions } from './types';
 
 async function createBlogDir(blogDir: string) {
   await mkdir(blogDir, { recursive: true });
@@ -13,7 +13,7 @@ export async function createBlogFile(opts: CreateBlogOptions) {
   const frontMatter = `---\n${yaml.dump({ title, authors, tags }, { flowLevel: 1 })}---\n\n<!--truncate-->\n`;
 
   const ext = mdx ? '.mdx' : '.md';
-  const filePath = standalone ? path + ext : path + '/index' + ext;
+  const filePath = standalone ? `${path}${ext}` : `${path}/index${ext}`;
 
   if (!standalone) await createBlogDir(path);
 
