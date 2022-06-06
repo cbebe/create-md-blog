@@ -39,7 +39,7 @@ promises.__setBehaviour = function __setBehaviour(b: Behaviour) {
   behaviour = b;
 };
 
-promises.readFile = async function readFile(_: string) {
+promises.readFile = async function readFile(/* file: string */) {
   if (behaviour === 'Error') {
     throw new Error('A regular error');
   } else if (behaviour === 'NotFound') {
