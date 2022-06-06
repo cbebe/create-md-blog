@@ -46,7 +46,7 @@ export async function promptQuestions(
       type: 'text',
       name: 'slug',
       message: 'URL slug for the blog',
-      validate: (slug) => (slugs.has(slug) ? `Slug \`${slug}\`already exists in blog` : true),
+      validate: (slug) => (slugs.has(slug) ? `Slug \`${slug}\` already exists in blog` : true),
       initial: (_, values) => slugify(values.title || options.title),
     });
   } else if (slugs.has(slug)) {

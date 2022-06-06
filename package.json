@@ -24,7 +24,8 @@
     "prepare": "npm run build",
     "dev": "nodemon dist/bin/md-blog.js",
     "watch": "tsc --watch",
-    "test": "jest"
+    "test": "jest",
+    "cov": "jest --collect-coverage --verbose && serve ./coverage/lcov-report"
   },
   "keywords": [
     "docusaurus",
@@ -54,6 +55,11 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "./tsconfig.spec.json"
+      }
+    },
     "moduleDirectories": [
       "node_modules"
     ]

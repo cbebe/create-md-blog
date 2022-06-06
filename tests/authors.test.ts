@@ -8,7 +8,7 @@ describe('getAuthors', () => {
   });
 
   it('should get a list of authors with their ID', async () => {
-    require('fs/promises').__setBehaviour('author');
+    require('fs/promises').__setBehaviour('authors');
     const result = [
       [
         'author1',

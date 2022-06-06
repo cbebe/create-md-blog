@@ -26,7 +26,8 @@ export async function main() {
     .addOption(
       (() => {
         const option = new Option('--tags <tags...>', 'Specify existing tags');
-        return fileData.tags.size ? option.choices(Array.from(fileData.tags)) : option;
+        if (fileData.tags.size) option.choices(Array.from(fileData.tags));
+        return option;
       })()
     )
     .option('-p, --prompt-new-tags', 'Prompt to add new tags', false)
@@ -44,14 +45,7 @@ export async function main() {
     const response = await promptQuestions(authorChoices, fileData, options);
     const { title, author, date, slug, tags, standalone } = response;
     const path = join(BLOG_DIR, `${fmtDate(date)}-${slug}`);
-    const file = await createBlogFile({
-      title,
-      author,
-      path,
-      tags,
-      standalone,
-      mdx: options.mdx,
-    });
+    const file = await createBlogFile({ title, author, path, tags, standalone, mdx: options.mdx });
     if (standalone) {
       process.stdout.write(`Created blog file ${file}\n`);
     } else {

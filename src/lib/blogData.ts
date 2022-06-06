@@ -1,35 +1,9 @@
-import fm from 'front-matter';
-import { readFile } from 'fs/promises';
-import readdirp from 'readdirp';
-import { BlogAttributes, BlogData } from './types';
+import { promise } from 'readdirp';
+import { getSlugAndTagsFromFile } from './fmAttributes';
+import { BlogData } from './types';
 
-function getFileSlug(fileName: string) {
-  const fileSlug = fileName.match(/.*\d{4}-\d{2}-\d{2}-(.*?)(\/index)?.mdx?/);
-  return fileSlug ? fileSlug[1] : null;
-}
-
-async function getSlugAndTagsFromFile(fileName: string): Promise<[string | null, string | string[]]> {
-  const { attributes } = fm<BlogAttributes>((await readFile(fileName)).toString());
-  return [attributes.slug ? attributes.slug : getFileSlug(fileName), attributes.tags];
-}
-
-function getAllMarkdownFiles(dir: string): Promise<string[]> {
-  return new Promise<string[]>((resolve) => {
-    const allFilePaths: string[] = [];
-    readdirp(dir, { fileFilter: ['*.md', '*.mdx'] })
-      .on('data', function (entry) {
-        allFilePaths.push(entry.fullPath);
-      })
-      .on('warn', function (warn) {
-        process.stderr.write('readdirp Warn: ' + warn + '\n');
-      })
-      .on('error', function (err) {
-        process.stderr.write('readdirp Error: ' + err.stack + '\n');
-      })
-      .on('end', function () {
-        resolve(allFilePaths);
-      });
-  });
+async function getAllMarkdownFiles(dir: string): Promise<string[]> {
+  return (await promise(dir, { fileFilter: ['*.md', '*.mdx'] })).map((e) => e.fullPath);
 }
 
 export async function getSlugsAndTags(blogDir: string): Promise<BlogData> {
