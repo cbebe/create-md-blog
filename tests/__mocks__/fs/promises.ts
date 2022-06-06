@@ -5,6 +5,8 @@ type Behaviour = 'Error' | 'NotFound' | 'authors' | 'fm';
 interface Promises {
   __setBehaviour(b: Behaviour): void;
   readFile(file: string): Promise<string>;
+  writeFile(file: string, contents: string): Promise<void>;
+  mkdir(dir: string): Promise<void>;
 }
 
 const promises: Promises = jest.createMockFromModule('fs/promises');
@@ -52,4 +54,13 @@ promises.readFile = async function readFile(/* file: string */) {
 
   throw new Error('behaviour not defined');
 };
+
+promises.writeFile = async function writeFile() {
+  //
+};
+
+promises.mkdir = async function mkdir() {
+  //
+};
+
 module.exports = promises;

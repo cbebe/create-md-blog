@@ -25,8 +25,8 @@
     "dev": "nodemon dist/bin/md-blog.js",
     "watch": "tsc --watch",
     "test": "jest",
-    "cov": "jest --collect-coverage --verbose && serve ./coverage/lcov-report",
-    "lint": "eslint"
+    "cov": "jest --collect-coverage --verbose ; serve ./coverage/lcov-report",
+    "lint": "eslint src/**/*.ts tests/**/*.ts"
   },
   "keywords": [
     "docusaurus",

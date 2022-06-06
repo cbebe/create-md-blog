@@ -1,6 +1,6 @@
 import { promise } from 'readdirp';
 import { getSlugAndTagsFromFile } from './fmAttributes';
-import { BlogData } from './types';
+import type { BlogData } from './types';
 
 async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   return (await promise(dir, { fileFilter: ['*.md', '*.mdx'] })).map((e) => e.fullPath);

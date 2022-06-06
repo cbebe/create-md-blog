@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises';
 import yaml from 'js-yaml';
-import { CreateBlogOptions } from './types';
+import type { CreateBlogOptions } from './types';
 
 async function createBlogDir(blogDir: string) {
   await mkdir(blogDir, { recursive: true });

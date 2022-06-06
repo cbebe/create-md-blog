@@ -1,6 +1,6 @@
 import prompts, { PromptObject } from 'prompts';
 import slugify from 'slug';
-import { AuthorChoices, BlogData, CLIPromptOptions, PromptResponse } from './types';
+import type { AuthorChoices, BlogData, CLIPromptOptions, PromptResponse } from './types';
 
 export async function promptQuestions(
   authorChoices: AuthorChoices,

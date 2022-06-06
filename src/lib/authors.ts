@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { load } from 'js-yaml';
-import { AuthorChoices } from './types';
+import type { AuthorChoices } from './types';
 
 export async function getAuthors(filePath: string): Promise<AuthorChoices> {
   try {
