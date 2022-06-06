@@ -2,10 +2,12 @@
 
 Create a markdown blog file using the CLI
 
+<p align="center">
 <img src="https://img.shields.io/npm/v/create-md-blog.svg" alt="NPM Version" />
 <img src="https://img.shields.io/npm/l/create-md-blog.svg" alt="Package License" />
 <img src="https://img.shields.io/npm/dm/create-md-blog.svg" alt="NPM Downloads" />
 <a href='https://coveralls.io/github/cbebe/create-md-blog?branch=master'><img src='https://coveralls.io/repos/github/cbebe/create-md-blog/badge.svg?branch=master' alt='Coverage Status' /></a>
+</p>
 
 ## Install
 
